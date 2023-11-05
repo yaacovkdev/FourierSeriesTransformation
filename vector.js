@@ -4,4 +4,7 @@ class Vector{
         this.rpm = rpm;
         this.angle = 0;
     }
+    setAngle(a){
+        this.angle = a;
+    }
 }

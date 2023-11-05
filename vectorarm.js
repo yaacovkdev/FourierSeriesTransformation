@@ -9,8 +9,19 @@ class VectorArm{
         this.vectors = 0;
     }
 
-    push(vector){
+    addVector(vector){
         this.#vectorlist.push(vector);
+        this.vectors++;
+    }
+
+    push(length, rpm){
+        this.#vectorlist.push(new Vector(length, rpm));
+        this.vectors++;
+    }
+
+    pushA(length, rpm, angle){
+        this.#vectorlist.push(new Vector(length, rpm));
+        this.#vectorlist[this.#vectorlist.length - 1].setAngle(angle);
         this.vectors++;
     }
 

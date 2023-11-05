@@ -17,8 +17,21 @@ function setup(){
     canvas = createCanvas(1000,1000, WEBGL);
     canvas.parent('mainDiv');
     canvas.id('mainCanvas');
+
     frameRate(FPS);
     background(0);
+}
+
+function resetvalues(){
+    x1 = 0; y1 = 0, x2 = 0, y2 = 0, angle = 0;
+    nam = {
+        started: false,
+        old_x: 0,
+        old_y: 0,
+        new_x: 0,
+        new_y: 0,
+    }
+    ink = [];
 }
 
 function displayvectors(){
@@ -69,13 +82,18 @@ function displayink(){
         line(nam.new_x,nam.new_y,nam.old_x,nam.old_y);
         nam.old_x = x1;
         nam.old_y = y1;
-        
     }
     pop();
 }
 
 function draw(){
     if(displayarm) background(0);
+    if(reset_canvas){
+        resetvalues();
+        background(0);
+        reset_canvas = false;
+    }
+    if(mainArm == null) return;
     displayvectors();
     displayink();
     mainArm.proceed(FPS);
