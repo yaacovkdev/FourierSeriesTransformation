@@ -10,5 +10,4 @@ eval(code_field);
 document.getElementById("buttonfield").onclick = function() {
     reset_canvas = true;
     code_field = document.getElementById("codefield").value;
-    eval(code_field);
 }

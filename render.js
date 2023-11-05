@@ -32,6 +32,8 @@ function resetvalues(){
         new_y: 0,
     }
     ink = [];
+    displayarm = false;
+    eval(code_field);
 }
 
 function displayvectors(){
