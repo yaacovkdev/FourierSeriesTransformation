@@ -49,7 +49,7 @@ function displayvectors(){
         if(angle < 0) angle += 2 * Math.PI;
 
         x2 += vec.length * Math.cos(angle);
-        y2 += vec.length * Math.sin(angle);
+        y2 += vec.length * -Math.sin(angle); //negative is up in WebGL
         if(displayarm) line(x1,y1,x2,y2);
         x1 = x2;
         y1 = y2;
