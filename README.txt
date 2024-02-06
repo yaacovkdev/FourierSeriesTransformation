@@ -12,5 +12,6 @@ To speed up the drawing, you can multiply the second arguement for both mainArm 
 
 Write:
 
-//---------------------
-displayArm
+//----------------
+displayArm = true;
+//----------------
