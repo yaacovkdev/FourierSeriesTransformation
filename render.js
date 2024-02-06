@@ -43,7 +43,11 @@ function displayvectors(){
     strokeWeight(1);
     for (var i = 0; i < mainArm.vectors; i++){
         var vec = mainArm.pos(i);
+
         angle += vec.angle;
+        if(i != 0){
+            angle+=mainArm.pos(i-1).angle;
+        }
 
         if(angle > 2 * Math.PI) angle -= 2 * Math.PI;
         if(angle < 0) angle += 2 * Math.PI;
@@ -60,7 +64,7 @@ function displayvectors(){
 function displayink(){
     push();
     stroke(0,255,0);
-    strokeWeight(3);
+    strokeWeight(2);
     if(displayarm){
         ink.push([x1,y1]);
         if(ink.length > 1000){
