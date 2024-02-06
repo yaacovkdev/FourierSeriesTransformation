@@ -5,6 +5,8 @@ let canvas;
 let ink = [];
 let x1 = 0; y1 = 0, x2 = 0, y2 = 0, angle = 0;
 let displayarm = false;
+let drawspeed = 1;
+
 let nam = {
     started: false,
     old_x: 0,
@@ -22,6 +24,10 @@ function setup(){
     background(0);
 }
 
+function setSpeed(s){
+    drawspeed = s;
+}
+
 function resetvalues(){
     x1 = 0; y1 = 0, x2 = 0, y2 = 0, angle = 0;
     nam = {
@@ -36,7 +42,7 @@ function resetvalues(){
     eval(code_field);
 }
 
-function displayvectors(){
+function displayVectors(){
     x1 = 0; y1 = 0, x2 = 0, y2 = 0, angle = 0;
     push();
     stroke(255);
@@ -61,7 +67,7 @@ function displayvectors(){
     pop();
 }
 
-function displayink(){
+function displayInk(){
     push();
     stroke(0,255,0);
     strokeWeight(2);
@@ -92,6 +98,14 @@ function displayink(){
     pop();
 }
 
+function drawSequence(s){
+    for(var i = 0; i < s; i++){
+        displayVectors();
+        displayInk();
+        mainArm.proceed(FPS);
+    }
+}
+
 function draw(){
     if(displayarm) background(0);
     if(reset_canvas){
@@ -100,7 +114,6 @@ function draw(){
         reset_canvas = false;
     }
     if(mainArm == null) return;
-    displayvectors();
-    displayink();
-    mainArm.proceed(FPS);
+    
+    drawSequence(drawspeed);
 }
