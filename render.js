@@ -39,6 +39,7 @@ function resetvalues(){
     }
     ink = [];
     displayarm = false;
+    drawspeed = 1;
     eval(code_field);
 }
 
@@ -98,6 +99,7 @@ function displayInk(){
     pop();
 }
 
+//updates canvas in between frames when sped up
 function drawSequence(s){
     for(var i = 0; i < s; i++){
         displayVectors();
