@@ -15,7 +15,7 @@ let x2 = 0;
 let y2 = 0;
 let angle = 0;
 
-let displayarm = true;
+let displayarm = false;
 let drawspeed = 1;
 
 let nam = {
@@ -28,12 +28,12 @@ let nam = {
 
 function setup() {
   canvas = createCanvas(CANVAS_SIZE, CANVAS_SIZE);
-  background(0);
+
   canvas.parent("mainDiv");
   canvas.id("mainCanvas");
 
-  linegraphics = createGraphics(CANVAS_SIZE / 2, CANVAS_SIZE / 2, WEBGL);
-  inklayer = createGraphics(CANVAS_SIZE / 2, CANVAS_SIZE / 2, WEBGL);
+  linegraphics = createGraphics(CANVAS_SIZE, CANVAS_SIZE, WEBGL);
+  inklayer = createGraphics(CANVAS_SIZE, CANVAS_SIZE, WEBGL);
 
   linegraphics.stroke(255);
   linegraphics.strokeWeight(1);
@@ -41,11 +41,11 @@ function setup() {
   inklayer.stroke(0, 255, 0);
   inklayer.strokeWeight(2);
 
-  inklayer.frameRate(FPS);
-  linegraphics.frameRate(FPS);
+  inklayer.smooth(4);
+  linegraphics.smooth(2);
 
-  //inklayer.background(0);
-  //linegraphics.background(0);
+  frameRate(FPS);
+  background(0);
 }
 
 function setSpeed(s) {
@@ -62,20 +62,23 @@ function resetvalues() {
     new_x: 0,
     new_y: 0,
   };
-  displayarm = true;
+  displayarm = false;
   drawspeed = 1;
   eval(code_field);
 
-  inklayer.background(0);
-  linegraphics.background(0);
+  background(0);
+
+  //HOLY MOLY RANDOM GUESS.
+  inklayer.clear();
+  linegraphics.clear();
 }
 
 function displayVectors(drawArm) {
   x1 = STARTING_X;
   (y1 = STARTING_Y), (x2 = STARTING_X), (y2 = STARTING_Y), (angle = 0);
-  if (drawArm) {
-    //linegraphics.background(0);
-  }
+
+  if (drawArm) linegraphics.background(0);
+
   for (var i = 0; i < mainArm.vectors; i++) {
     var vec = mainArm.pos(i);
 
@@ -112,7 +115,7 @@ function displayInk() {
 }
 
 //updates canvas in between frames when sped up
-function drawSequence(s) {
+function updateSequence(s) {
   displayVectors(displayarm);
   displayInk();
   mainArm.proceed(FPS);
@@ -133,9 +136,9 @@ function draw() {
   }
   if (mainArm == null) return;
 
-  image(linegraphics, 0, 0);
-  linegraphics.background(0);
-  image(inklayer, 0, 0);
-  drawSequence(drawspeed);
+  updateSequence(drawspeed);
 
+  //render
+  if (displayarm) image(linegraphics, 0, 0);
+  image(inklayer, 0, 0);
 }
